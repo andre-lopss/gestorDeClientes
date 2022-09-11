@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace GestorDeClientes
 {
-    
     internal class Program
     {
         [System.Serializable]
@@ -33,6 +32,7 @@ namespace GestorDeClientes
                 switch (opcao)
                 {
                     case Menu.Listagem:
+                        Listagem();
                         break;
                     case Menu.Adicionar:
                         Adicionar();
@@ -44,8 +44,7 @@ namespace GestorDeClientes
                         break;
                 }
                 Console.Clear();
-            }
-           
+            }  
         }
 
         static void Adicionar()
@@ -63,6 +62,32 @@ namespace GestorDeClientes
             clientes.Add(cliente);
 
             Console.WriteLine("Cadastro concluido, aperte ENTER para sair.");
+            Console.ReadLine();
+        }
+
+        static void Listagem()
+        {
+            if(clientes.Count > 0) //SE tem pelo menos um
+            {
+                Console.Clear();
+                Console.WriteLine("LISTA DE CLIENTES: ");
+                int i = 0;
+                foreach (Cliente cliente in clientes)
+                {
+                    Console.WriteLine($"ID: {i}");
+                    Console.WriteLine($"Nome: {cliente.nome}");
+                    Console.WriteLine($"Email: {cliente.email}");
+                    Console.WriteLine($"CPF: {cliente.cpf}");
+                    Console.WriteLine("====================================");
+                    i++;
+                }
+            }
+            else
+            {
+                Console.WriteLine("A lista de clientes está vazia.");
+            }
+
+            Console.WriteLine("Aperte ENTER para sair.");
             Console.ReadLine();
         }
     }
