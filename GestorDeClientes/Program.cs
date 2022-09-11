@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 namespace GestorDeClientes
 {
-    [System.Serializable]
-    struct Cliente
-    {
-        public string nome;
-        public string email;
-        public string cpf;
-    }
-
-    static List<Cliente> clientes = new List<Cliente>();
-    enum Menu { Listagem = 1, Adicionar, Remover, Sair}
+    
     internal class Program
     {
+        [System.Serializable]
+        struct Cliente
+        {
+            public string nome;
+            public string email;
+            public string cpf;
+        }
+
+        static List<Cliente> clientes = new List<Cliente>();
+        enum Menu { Listagem = 1, Adicionar, Remover, Sair }
         static void Main(string[] args)
         {
             bool escolheuSair = false;
@@ -34,6 +35,7 @@ namespace GestorDeClientes
                     case Menu.Listagem:
                         break;
                     case Menu.Adicionar:
+                        Adicionar();
                         break;
                     case Menu.Remover:
                         break;
@@ -44,6 +46,24 @@ namespace GestorDeClientes
                 Console.Clear();
             }
            
+        }
+
+        static void Adicionar()
+        {
+            Console.Clear();
+            Cliente cliente = new Cliente();
+            Console.WriteLine("CADASTRO DE CLIENTES:");
+            Console.WriteLine("Nome do Cliente: ");
+            cliente.nome = Console.ReadLine();
+            Console.WriteLine("Email do Cliente: ");
+            cliente.email = Console.ReadLine();
+            Console.WriteLine("CPF do Cliente: ");
+            cliente.cpf = Console.ReadLine();
+
+            clientes.Add(cliente);
+
+            Console.WriteLine("Cadastro concluido, aperte ENTER para sair.");
+            Console.ReadLine();
         }
     }
 }
