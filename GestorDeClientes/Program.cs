@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace GestorDeClientes
 {
+    [System.Serializable]
+    struct Cliente
+    {
+        public string nome;
+        public string email;
+        public string cpf;
+    }
 
+    static List<Cliente> clientes = new List<Cliente>();
     enum Menu { Listagem = 1, Adicionar, Remover, Sair}
     internal class Program
     {
