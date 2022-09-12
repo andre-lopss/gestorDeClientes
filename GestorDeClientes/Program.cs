@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +22,8 @@ namespace GestorDeClientes
         enum Menu { Listagem = 1, Adicionar, Remover, Sair }
         static void Main(string[] args)
         {
+            Carregar();
+
             bool escolheuSair = false;
             
             while (!escolheuSair)
@@ -60,6 +64,8 @@ namespace GestorDeClientes
             cliente.cpf = Console.ReadLine();
 
             clientes.Add(cliente);
+            Salvar();
+             
 
             Console.WriteLine("Cadastro concluido, aperte ENTER para sair.");
             Console.ReadLine();
@@ -89,6 +95,40 @@ namespace GestorDeClientes
 
             Console.WriteLine("Aperte ENTER para sair.");
             Console.ReadLine();
+        }
+
+        static void Salvar()
+        {
+            FileStream stream = new FileStream("clients.dat", FileMode.OpenOrCreate);
+            BinaryFormatter encoder = new BinaryFormatter();
+
+            encoder.Serialize(stream, clientes);
+
+            stream.Close();
+        }
+
+        static void Carregar()
+        {
+            FileStream stream = new FileStream("clients.dat", FileMode.OpenOrCreate);
+
+            try
+            {
+                BinaryFormatter encoder = new BinaryFormatter();
+
+                clientes = (List<Cliente>)encoder.Deserialize(stream);
+
+                if(clientes == null)
+                {
+                    clientes = new List<Cliente>();
+                }
+
+            }
+            catch(Exception e)
+            {
+                clientes = new List<Cliente>(); 
+            }
+
+            stream.Close();
         }
     }
 }
