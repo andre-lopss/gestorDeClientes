@@ -42,6 +42,7 @@ namespace GestorDeClientes
                         Adicionar();
                         break;
                     case Menu.Remover:
+                        Remover();
                         break;
                     case Menu.Sair:
                         escolheuSair = true;
@@ -97,6 +98,23 @@ namespace GestorDeClientes
             Console.ReadLine();
         }
 
+        static void Remover()
+        {
+            Listagem();
+
+            Console.WriteLine("Digite o ID do cliente que você quer remover: ");
+            int id = int.Parse(Console.ReadLine());
+            if(id >= 0 && id < clientes.Count)
+            {
+                clientes.RemoveAt(id);
+                Salvar();
+            }
+            else
+            {
+                Console.WriteLine("ID digitado é inválido, tente novamente!");
+                Console.ReadLine();
+            }
+        }
         static void Salvar()
         {
             FileStream stream = new FileStream("clients.dat", FileMode.OpenOrCreate);
